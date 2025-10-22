@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -37,30 +37,31 @@
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-6">
+                                
                                 <div class="p-5">
+                                    
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Bienvinido!</h1>
                                     </div>
-                                    <form class="user">
+                                    
+                                    <form action="controlador.php" method="POST">
+                                        
                                         <div class="form-group">
+                                                  <label for="floatingInput">Email</label>
                                             <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                               name="email" aria-describedby="emailHelp"
                                                 placeholder="Intregar el email...">
+                                      
                                         </div>
                                         <div class="form-group">
+                                            <label for="floatingPassword">Password</label>
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Contraseña">
+                                                name="password" placeholder="Contraseña">
+                                            
                                         </div>
                                         <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Recuerda
-                                                    Me</label>
-                                            </div>
                                         </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                            Inicio de sesión
-                                        </a>
+                                          <input class="btn btn-primary w-100 py-2" type="submit" name="login" value="Login">
                                         <hr>
                                     </form>
                                     <hr>
