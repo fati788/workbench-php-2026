@@ -15,6 +15,10 @@ if (!isset($_SESSION['usuario']))
     <meta name="description" content="">
     <meta name="author" content="">
 
+     <link rel="stylesheet" href="./css/fontawesome.css">
+    <link href="./assets/css/solid.css" rel="stylesheet" />
+
+    <link rel="icon" href="./img/icono.png" sizes="32x32" type="image/png">
     <title>Proyectos</title>
 
     <?php         
@@ -25,7 +29,9 @@ if (!isset($_SESSION['usuario']))
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Tablas</h1>
-                
+                    <a class="btn btn-primary btn-sm mb-2" href="controlador.php?accion=generarProyectos">
+                                   Generar informe
+                                 </a>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -34,6 +40,9 @@ if (!isset($_SESSION['usuario']))
 
                         <div class="card-body">
                             <div class="table-responsive">
+                                
+                                
+
                                 <table class=" table table-striped">
                                     <thead>
                                         <tr>
@@ -43,7 +52,7 @@ if (!isset($_SESSION['usuario']))
                                             <th>Dias Transcurridos</th>
                                             <th>Porcentage Completado (%)</th>
                                             <th>importancia</th>
-                                            <th>Elimira Proyecto </th>
+                                            <th>Acciones </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -58,7 +67,8 @@ if (!isset($_SESSION['usuario']))
                                          echo "<td>" . $proyecto['porcentageCompletado'] . "</td>";
                                          echo "<td>" . $proyecto['importancia'] . "</td>";
                                          echo "<td>";
-                                          echo "<a href='controlador.php?accion=eliminar&id=". $proyecto['id']."'> Eliminar </a>";
+                                          echo "<a href='controlador.php?accion=eliminar&id=". $proyecto['id']."'> <i class='fa-solid fa-trash'></i> </a>";
+                                          echo "<a href='controlador.php?accion=verProyecto&id=". $proyecto['id']."'> <i class='fa-solid fa-eye'></i> </a>";
                                          echo "</td>";
 
                                         echo "</tr>";
