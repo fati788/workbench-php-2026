@@ -34,7 +34,7 @@ if (!isset($_SESSION['usuario']))
                     <p class="card-text"><strong>Fecha de inicio: </strong><?= $_REQUEST['fechaIni']; ?></p>
                     <p class="card-text"><strong>Fecha de fin:</strong> <?= $_REQUEST['fechaFinPrevista']; ?></p>
                     <p class="card-text"><strong>Dias transcurridos:</strong> <?= $_REQUEST['diasTranscurridos']; ?></p>
-                    
+                      <p class="card-text"><strong>Porcentage:</strong> </p>
                     <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="<?= $_REQUEST['porcentageCompletado']; ?>" aria-valuemin="0" aria-valuemax="100">
                            <div class="progress-bar text-bg-success" style="width:  <?= $_REQUEST['porcentageCompletado']; ?>%;"> <?= $_REQUEST['porcentageCompletado']; ?>%</div>
                      </div>
