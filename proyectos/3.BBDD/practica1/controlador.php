@@ -4,14 +4,42 @@ require_once("modelo.php");
 
 //Formulario de Login
 if (isset($_REQUEST["login"])) {
+    $email = $_REQUEST['email'];
+    $password = $_REQUEST['password'];
+
     //Habría que validar en BBDD que el password sea correcto
-
-    //Grabamos en la sesión el email logueado
-    $_SESSION['usuario'] = $_REQUEST['email'];
-
-    header("Location: clientes.php");
+    $password_hash = getPassword($email);
+    if (isset($password_hash)) {
+        //Chequear que sea válida
+        if (password_verify($password, $password_hash)) {
+            //Login ok
+            //Grabamos en la sesión el email logueado
+            $_SESSION['usuario'] = $email;
+            header("Location: clientes.php");
+        } else {
+            //Contraseña incorrecta
+            header("Location: login.php?error=passwordincorrecto");
+        }
+    } else {
+        //No existe ese email
+        header("Location: login.php?error=emailnoencontrado");
+    }
 }
-
+//Formulario de registro
+if (isset($_REQUEST["registro"])) {
+    $email = $_REQUEST['email'];
+    $password = password_hash($_REQUEST['password'], PASSWORD_BCRYPT);
+    $nombre = $_REQUEST['nombre'];
+    $apellidos = $_REQUEST['apellidos'];
+    $telefono = $_REQUEST['telefono'];
+    $exito = insertUsuario($email, $password, $nombre, $apellidos, $telefono);
+    if ($exito) {
+        $_SESSION['usuario'] = $email;
+        header("Location: clientes.php");
+    } else {
+        header("Location: registro.php?error=emailyaexiste");
+    }
+}
 //Formulario de nuevo cliente
 if (isset($_REQUEST["nuevoCliente"])) {
     insertCliente($_REQUEST['nombre'] , $_REQUEST['dni'] , $_REQUEST['email']);
@@ -20,24 +48,32 @@ if (isset($_REQUEST["nuevoCliente"])) {
 
 //Formulario de eliminar todos los clientes
 if (isset($_REQUEST["eliminarClientes"])) {
-  deleteAllCliente();
+       deleteAllCliente();
     header("Location: clientes.php");
 }
 
 //Formulario de nueva incidencia
 if (isset($_REQUEST["nuevaIncidencia"])) {
-    $incidencia = array("id" => $_REQUEST["id"], "dni" => $_REQUEST["dni"], "descr" => $_REQUEST["descr"]);
-    array_push($_SESSION['incidencias'], $incidencia);
+    $dni = $_REQUEST["dni"];
+    $descr = $_REQUEST["descr"];
+    $fecha_creacion = date("Y-m-d");
+    $codigo = uniqid("INC_", true);
+    $estado = "creada";
+    insertIncidencia($codigo, $dni,$descr,$fecha_creacion , $estado);
     header("Location: incidencias.php");
 }
 
 //Formulario de eliminar todas las incidencias
 if (isset($_REQUEST["eliminarIncidencias"])) {
-    $_SESSION['incidencias'] = array();
+     deleteAllIncidencias();
     header("Location: incidencias.php");
 }
 
-
+//Formulario para modificar el estado de una incidencia
+if (isset($_REQUEST["modificarIncidencia"])) {
+    updateIncidencia($_REQUEST['id'], $_REQUEST['estado']);
+    header("Location: incidencias.php");
+}
 //Acciones por URL - GET
 if (isset($_REQUEST['accion'])) {
     switch ($_REQUEST['accion']) {
@@ -56,25 +92,14 @@ if (isset($_REQUEST['accion'])) {
         //Eliminar incidencia
         case 'delIncidencia':
             //Eliminamos la posición indicada del array
-            $posicion = $_REQUEST['posicion'];
-            unset($_SESSION['incidencias'][$posicion]);
-            $_SESSION['incidencias'] = array_values($_SESSION['incidencias']); //Regenerar índices y no dejar huecos
-
+           $idIncidencia = $_REQUEST['id'];
+           deleteIncidenciaById($idIncidencia);
             header("Location: incidencias.php");
             break;
         //Ver incidencia en detalle
         case 'verIncidencia':
             $idIncidencia = $_REQUEST['id'];
-            //Buscamos la incidencia por su ID en la sesión
-            foreach ($_SESSION['incidencias'] as $incidencia) {
-                if (strcmp($incidencia['id'], $idIncidencia) == 0) {
-                    $dni = $incidencia['dni'];
-                    $descr = $incidencia['descr'];
-                }
-            }
-
-            header("Location: verIncidencia.php?id=" . $idIncidencia . "&dni=" . $dni . "&descr=" . $descr);
-
+            header("Location: verIncidencia.php?id=" . $idIncidencia);
             break;
 
         //Ver cliente en detalle

@@ -17,8 +17,8 @@ if (!isset($_SESSION['usuario']))
 
      <link rel="stylesheet" href="./css/fontawesome.css">
        <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="icon" href="./img/icono.png" sizes="32x32" type="image/png">
-    <title>Proyectos</title>
+    <link rel="icon" href="./images/icono.png" sizes="32x32" type="image/png">
+    <title>Juego</title>
 </head>
 <body>
 
@@ -41,7 +41,7 @@ if (!isset($_SESSION['usuario']))
                         </li>
                         <li>
                             <a class="dropdown-item" href="controlador.php?accion=cerrarsesion">
-                                Cerrar
+                                Cerrar sesion
                             </a>
                         </li>
                     </ul>
@@ -51,8 +51,73 @@ if (!isset($_SESSION['usuario']))
     </header>
 
     <main>
-       <h1>Bienvinido al Juego</h1>
-        
+        <h1>Bienvinido al Juego</h1>
+
+       <p>Haga clic en el droso de la carta para pedir otra carta: </p>
+      
+        <form action="controlador.php" method="POST">
+            <button class="mb-2" type="submit" name="dorso" value="1" style="border:none; background:none;">
+                <img src="cartas/dorso-rojo.svg" alt="Dorso" width="150">
+            </button>
+              <label>
+            <?php
+            $cont =0;
+            if(isset($_SESSION['cartas_mostradas'])){
+                foreach($_SESSION['cartas_mostradas'] as $c){
+                    echo "<img src='$c' width='150'>";
+                    $cont ++;
+                    if($cont == 5){
+                        break;
+                    }
+                }
+            }
+            ?>
+        </label><br>
+        <button class="btn btn-primary" type="submit" name="reiniciar">Reiniciar</button>
+        </form>
+        <hr>
+                <p><strong>Puntuación actual:</strong>
+            <?php
+                if (isset($_SESSION['puntacion'])) {
+                    echo $_SESSION['puntacion'];
+                } else {
+                    echo 0;
+                }
+            ?>
+        </p>
+        <?php
+           if (isset($_SESSION['mensaje'])) {
+              echo "<p><strong>".$_SESSION['mensaje'] . "</strong></p>";
+            }
+
+        ?>
+        <hr>
+        <h4>Estadísticas:</h4>
+        <?php
+            if (isset($_SESSION['jugadas'])) {
+                $jugadas = $_SESSION['jugadas'];
+            } else {
+                $jugadas = 0;
+            }
+
+            if (isset($_SESSION['ganadas'])) {
+                $ganadas = $_SESSION['ganadas'];
+            } else {
+                $ganadas = 0;
+            }
+
+            if (isset($_SESSION['perdidas'])) {
+                $perdidas = $_SESSION['perdidas'];
+            } else {
+                $perdidas = 0;
+            }
+        ?>
+        <p>
+            Jugadas: <?php echo $jugadas; ?> |
+            Ganadas: <?php echo $ganadas; ?> |
+            Perdidas: <?php echo $perdidas; ?>
+        </p>
+                
 
     </main>
     <script src="./js/bootstrap.bundle.min.js"></script>
