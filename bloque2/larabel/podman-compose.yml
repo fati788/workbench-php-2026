@@ -1,0 +1,22 @@
+version: "3.3"
+
+services:
+  linux:
+    container_name: debian
+    image: docker.io/debian:latest
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./example-app:/home/host:Z
+    command: sleep infinity
+
+  db:
+    container_name: mariadb_laravel
+    image: docker.io/mariadb:latest
+    environment:
+      MARIADB_ROOT_PASSWORD: toor
+      MARIADB_DATABASE: laravel
+      MARIADB_USER: usuario
+      MARIADB_PASSWORD: usuario134
+    volumes:
+      - ./mariadb:/var/lib/mysql
