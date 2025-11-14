@@ -33,30 +33,30 @@ if (!isset($_SESSION['usuario']))
                 <h3> Detalle de Proyecto </h3>
             </div>
             <div class="card-body">
-                <h5 class="card-title"><strong>titulo:</strong>
+                <h5 class="card-title "><strong class="text-warning">titulo:</strong>
                     <?=  $incidencia['titulo']; ?>
                 </h5>
-                <p class="card-text"><strong> descripcion: </strong>
+                <p class="card-text"><strong class="text-warning"> descripcion: </strong>
                     <?= $incidencia['descripcion']; ?>
                 </p>
-                <p class="card-text"><strong>tipo:</strong>
+                <p class="card-text"><strong class="text-warning">tipo:</strong>
                     <?= $incidencia['tipo']; ?>
                 </p>
-                <p class="card-text"><strong> estado:</strong>
+                <p class="card-text"><strong class="text-warning"> estado:</strong>
                     <?= $incidencia['estado']; ?>
                 </p>
-                <p class="card-text"><strong>prioridad:</strong>
+                <p class="card-text"><strong class="text-warning">prioridad:</strong>
                     <?= $incidencia['prioridad']; ?>
                 </p>
-                <p class="card-text"><strong>fecha de creacion:</strong>
+                <p class="card-text"><strong class="text-warning">fecha de creacion:</strong>
                     <?= $incidencia['fecha_creacion']; ?>
                 </p>
-                <p class="card-text"><strong>fecha de actualizacion:</strong>
+                <p class="card-text"><strong class="text-warning">fecha de actualizacion:</strong>
                     <?= $incidencia['fecha_actualizacion']; ?>
                 </p>
                 
                 <a href="./dashboard.php" class="btn btn-primary">Volver</a>
-                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modificarIncidencia">Modificar Incidencia</a>
+                <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modificarIncidencia">Modificar Incidencia</a>
 
                 
             </div>
@@ -124,8 +124,8 @@ if (!isset($_SESSION['usuario']))
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button class="btn btn-primary btn-lg" type="submit" name="accion" value="actualizar" form="mdi">
-                    <i class="bi bi-plus-circle"></i> Crear Incidencia
+                <button class="btn btn-success" type="submit" name="accion" value="actualizar" form="mdi">
+                    <i class="bi bi-plus-circle"></i> Modificar
                 </button>
             </div>
         </div>

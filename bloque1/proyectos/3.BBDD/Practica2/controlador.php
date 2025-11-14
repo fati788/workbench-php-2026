@@ -25,7 +25,12 @@ if (isset($_REQUEST["login"])) {
         header("Location: login.php?error=emailnoencontrado");
     }
 }
-
+if(isset($_REQUEST['eliminarIncidencia'])){
+    $id = $_REQUEST['id_incidencia'];
+    eliminarIncidencia($id);
+    header("Location: dashboard.php");
+             
+}
     
 if(isset($_REQUEST['accion'])){
     switch($_REQUEST['accion']){
@@ -33,9 +38,11 @@ if(isset($_REQUEST['accion'])){
             session_destroy();
             header("Location: login.php");
             break;
-        case 'eliminar':
-          
-             break;
+       /* case 'eliminar':
+            $id = $_REQUEST['id'];
+            eliminarIncidencia($id);
+             header("Location: dashboard.php");
+             break;*/
         case 'actualizar':
            $titulo = $_REQUEST['titulo'];
             $descripcion = $_REQUEST['descripcion'];
@@ -55,8 +62,8 @@ if(isset($_REQUEST['accion'])){
             $prioridad = $_REQUEST['prioridad'];
             $estado = 'Pendiente';
             $id_tecnico = $_SESSION['id_tecnico'];
-
-           crearIncidencia($titulo , $descripcion , $tipo , $estado , $prioridad , $id_tecnico);
+           $fecha_creacion = (new DateTime())->format('Y-m-d H:i:s');
+            crearIncidencia($titulo , $descripcion , $tipo , $estado , $prioridad , $fecha_creacion, $id_tecnico);
             header("Location: dashboard.php");
 
             break;
@@ -65,7 +72,43 @@ if(isset($_REQUEST['accion'])){
             header("Location: verIncidencia.php?id=" . $id);
             break;
 
-        break;
+        case 'listar':
+          
+            if (isset($_POST['estado']) && $_POST['estado'] != "") {
+                $estado = $_POST['estado'];
+            } else {
+                $estado = "Todas";
+            }
+
+            if (isset($_POST['tipo']) && $_POST['tipo'] != "") {
+                $tipo = $_POST['tipo'];
+            } else {
+                $tipo = "Todas";
+            }
+
+            if (isset($_POST['prioridad']) && $_POST['prioridad'] != "") {
+                $prioridad = $_POST['prioridad'];
+            } else {
+                $prioridad = "Todas";
+            }
+
+            $filtros = array(
+                "estado" => $estado,
+                "tipo" => $tipo,
+                "prioridad" => $prioridad
+            );
+
+            $id_tecnico = $_SESSION['id_tecnico'];
+
+            //Obtener incidencias filtradas
+            $incidencias = obtenerIncidenciasPorTecnicos($id_tecnico, $filtros);
+
+            //Guardar resultados en sesión para que el dashboard los muestre
+            $_SESSION['incidencias_filtradas'] = $incidencias;
+
+            header("Location: dashboard.php");
+            break;
+
         
         
         default:

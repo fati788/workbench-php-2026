@@ -62,14 +62,15 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button class="btn btn-primary btn-lg" type="submit" name="accion" value="nuevo" form="fap">
-                    <i class="bi bi-plus-circle"></i> Crear Incidencia
+                <button class="btn btn-primary " type="submit" name="accion" value="nuevo" form="fap">
+                    <i class="bi bi-plus-circle"></i> Crear 
                 </button>
             </div>
         </div>
     </div>
 </div>    
 
+ 
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">

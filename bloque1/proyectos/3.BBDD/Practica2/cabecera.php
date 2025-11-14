@@ -75,9 +75,11 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
 
-                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                        <input type="search" class="form-control" placeholder="Buscar..." aria-label="Search">
-                    </form>
+<form method="GET" action="controlador.php" class="d-flex mb-3">
+    <input type="hidden" name="accion" value="buscar">
+    <input type="text" name="termino" class="form-control me-2 ml-5" placeholder="Buscar incidencia...">
+    <button class="btn btn-primary" type="submit">Buscar</button>
+</form>
 
 
                     <!-- Topbar Navbar -->
