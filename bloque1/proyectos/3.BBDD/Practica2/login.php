@@ -47,27 +47,23 @@
                                     <form action="controlador.php" method="POST">
 
                                         <div class="form-group">
-                                            <label for="floatingInput">Email</label>
-                                            <input type="email" class="form-control form-control-user" name="email"
+                                            <label for="floatingInput" class="text-black">Email</label>
+                                            <input type="email" class="form-control form-control-user " name="email"
                                                 aria-describedby="emailHelp" placeholder="Intregar el email...">
 
                                         </div>
                                         <div class="form-group">
-                                            <label for="floatingPassword">Password</label>
+                                            <label for="floatingPassword" class="text-black">Password</label>
                                             <input type="password" class="form-control form-control-user"
                                                 name="password" placeholder="Contraseña">
 
                                         </div>
                                         <div class="form-group">
                                         </div>
-                                        <input class="btn btn-primary w-100 py-2" type="submit" name="login"
-                                            value="Login">
-                                        <hr>
+                                        <input class="btn btn-primary w-100 py-2" type="submit" name="accion"
+                                            value="login">
+                                        
                                     </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Crear una cuenta</a>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -79,6 +75,19 @@
         </div>
 
     </div>
+    <?php if (isset($_REQUEST['error'])): ?>
+        <div class="alert alert-danger text-center">
+
+            <?php if ($_REQUEST['error'] === "emailnoencontrado"): ?>
+                El email no existe.
+
+            <?php elseif ($_REQUEST['error'] === "passwordincorrecto"): ?>
+                La contraseña es incorrecta.
+
+            <?php endif; ?>
+
+        </div>
+    <?php endif; ?>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

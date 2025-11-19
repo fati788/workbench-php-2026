@@ -22,6 +22,20 @@ function getIncidencias(){
     $incidencias = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $incidencias;
 }
+/** funcion para validar el tecnico */
+function validarTecnico($email, $password){
+    $conexion = connexionDB();
+    $stmt = $conexion->prepare("SELECT * FROM tecnicos WHERE email=:email AND password=:password");
+    $stmt->bindParam(":email" , $email);
+    $stmt->bindParam(":password" , $password);
+    $stmt->execute();
+
+    $tectico = $stmt->fetch();
+    if ($tectico === false) {
+        return null;
+    } //la primera fila
+    return $tectico;
+}
 /**
  * obtenir el password
  */
@@ -31,7 +45,10 @@ function getTecnico($email){
     $stmt->bindParam(":email" , $email);
     $stmt->execute();
 
-    $tectico = $stmt->fetch(); //la primera fila
+    $tectico = $stmt->fetch();
+    if ($tectico === false) {
+        return null;
+    } //la primera fila
     return $tectico;
 
 }
@@ -111,48 +128,49 @@ function eliminarIncidencia($id){
 function obtenerIncidenciasPorTecnicos($id_tecnico, $filtros = []) {
     $conexion = connexionDB();
 
-    // Base de la consulta
     $sql = "SELECT * FROM incidencias WHERE id_tecnico = :id_tecnico";
-
-    // Filtrar por estado
-    if (isset($filtros['estado']) && $filtros['estado'] != "Todas") {
+     //por estado
+    if ($filtros['estado'] != "Todas") {
         $sql .= " AND estado = :estado";
     }
 
-    // Filtrar por tipo
-    if (isset($filtros['tipo']) && $filtros['tipo'] != "Todas") {
+    // por tipo
+    if ( $filtros['tipo'] != "Todas") {
         $sql .= " AND tipo = :tipo";
     }
 
-    // Filtrar por prioridad
-    if (isset($filtros['prioridad']) && $filtros['prioridad'] != "Todas") {
+    //por prioridad
+    if ($filtros['prioridad'] != "Todas") {
         $sql .= " AND prioridad = :prioridad";
     }
-
-    // Ordenar por fecha
-    $sql .= " ORDER BY fecha_creacion DESC";
-
-    // Preparar la consulta
     $stmt = $conexion->prepare($sql);
-
-    // Bind de id_tecnico
-    $stmt->bindValue(":id_tecnico", $id_tecnico);
-
-    // Bind de los filtros (solo si existen)
-    if (isset($filtros['estado']) && $filtros['estado'] != "Todas") {
-        $stmt->bindValue(":estado", $filtros['estado']);
+    $stmt->bindParam(":id_tecnico", $id_tecnico);
+    // bind de los filtros (--> solo si existen)
+    if ($filtros['estado'] != "Todas") {
+        $stmt->bindParam(":estado", $filtros['estado']);
     }
-    if (isset($filtros['tipo']) && $filtros['tipo'] != "Todas") {
-        $stmt->bindValue(":tipo", $filtros['tipo']);
+    if ($filtros['tipo'] != "Todas") {
+        $stmt->bindParam(":tipo", $filtros['tipo']);
     }
-    if (isset($filtros['prioridad']) && $filtros['prioridad'] != "Todas") {
-        $stmt->bindValue(":prioridad", $filtros['prioridad']);
+    if ($filtros['prioridad'] != "Todas") {
+        $stmt->bindParam(":prioridad", $filtros['prioridad']);
     }
-
-    // Ejecutar
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+/**
+ * Metodo para buscar
+ */
+function buscarIncidencias($id_tecnico, $termino){
+    $conexion = connexionDB();
+    $stmt = $conexion->prepare("SELECT * FROM incidencias WHERE id_tecnico =:id_tecnico 
+    AND (titulo LIKE :termino OR descripcion LIKE :termino OR tipo LIKE :termino) ");
+    $stmt->bindParam(":id_tecnico", $id_tecnico);
+    $stmt->bindValue(":termino", "%".$termino."%");
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 }
 
 

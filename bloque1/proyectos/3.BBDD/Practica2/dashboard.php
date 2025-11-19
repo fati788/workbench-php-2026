@@ -27,18 +27,18 @@ if (!isset($_SESSION['usuario']))
       
       if (isset($_SESSION['incidencias_filtradas'])) {
       $incidencias = $_SESSION['incidencias_filtradas'];
-      unset($_SESSION['incidencias_filtradas']); // limpiar después de mostrar
+      unset($_SESSION['incidencias_filtradas']); // eliminar despues de mostrar
      } else {
       $incidencias = obtenerIncidenciasPorTecnico($_SESSION['id_tecnico']);
      }
     ?>
-    <!-- FORMULARIO DE FILTROS MEJORADO -->
+    <!-- FILTROS -->
     <div class="container mt-3">
         <form method="POST" action="controlador.php"
             class="row g-3 mb-4 align-items-end p-3 bg-light rounded shadow-sm">
             <input type="hidden" name="accion" value="listar">
 
-            <!-- FILTRO ESTADO -->
+            <!-- POR ESTADO -->
             <div class="col-md-4 col-lg-3">
                 <label for="estado" class="form-label fw-bold text-primary-emphasis">Estado</label>
                 <select name="estado" id="estado" class="form-select">
@@ -50,7 +50,7 @@ if (!isset($_SESSION['usuario']))
                 </select>
             </div>
 
-            <!-- FILTRO TIPO -->
+            <!-- POR TIPO -->
             <div class="col-md-4 col-lg-3">
                 <label for="tipo" class="form-label fw-bold text-primary-emphasis">Tipo</label>
                 <select name="tipo" id="tipo" class="form-select">
@@ -62,9 +62,9 @@ if (!isset($_SESSION['usuario']))
                 </select>
             </div>
 
-            <!-- FILTRO PRIORIDAD -->
+            <!-- POIR PRIORIDAD -->
             <div class="col-md-4 col-lg-3">
-                <label for="prioridad" class="form-label fw-bold text-primary-emphasis" >Prioridad</label>
+                <label for="prioridad" class="form-label fw-bold text-primary-emphasis">Prioridad</label>
                 <select name="prioridad" id="prioridad" class="form-select">
                     <option value="Todas">Todas</option>
                     <option value="Baja">Baja</option>
@@ -74,7 +74,7 @@ if (!isset($_SESSION['usuario']))
                 </select>
             </div>
 
-            <!-- BOTÓN FILTRAR -->
+            <!-- BOTON FILTRAR -->
             <div class="col-md-12 col-lg-1 d-grid">
                 <button type="submit" class="btn btn-primary btn-lg mt-2 mt-lg-0">Filtrar</button>
             </div>
@@ -83,11 +83,7 @@ if (!isset($_SESSION['usuario']))
 
     <!-- Begin Page Content -->
     <div class="container-fluid">
-
-        <!-- Page Heading -->
-     
-
-        <!-- DataTales Example -->
+        <!-- DataTales -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h3 class="m-0 font-weight-bold text-primary">Incidencias</h3>
@@ -98,12 +94,12 @@ if (!isset($_SESSION['usuario']))
                     <table class=" table table-striped">
                         <thead>
                             <tr>
-                                <th class ="text-primary-emphasis">Título</th>
-                                <th class ="text-primary-emphasis">Tipo</th>
-                                <th class ="text-primary-emphasis">Estado</th>
-                                <th class ="text-primary-emphasis">Prioridad</th>
-                                <th class ="text-primary-emphasis">Fecha de creación</th>
-                                <th class ="text-primary-emphasis">Acciones </th>
+                                <th class="text-primary-emphasis">Título</th>
+                                <th class="text-primary-emphasis">Tipo</th>
+                                <th class="text-primary-emphasis">Estado</th>
+                                <th class="text-primary-emphasis">Prioridad</th>
+                                <th class="text-primary-emphasis">Fecha de creación</th>
+                                <th class="text-primary-emphasis">Acciones </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -118,37 +114,12 @@ if (!isset($_SESSION['usuario']))
                                          echo "<td>" . $incidencia['fecha_creacion'] . "</td>";
                                          echo "<td>";
                                           echo "<a class='text-danger'  data-bs-toggle='modal' data-bs-target='#eliminarIncidencia' href='#'><i class='fa-solid fa-trash m-2'></i></a>";
-                                          echo "<a class='text-success'  href='controlador.php?accion=verIncidencia&id=". $incidencia['id_incidencia']."'><i class='fa-solid fa-eye m-2'></i></a>";
+                                          echo "<a class='text-success'  href='controlador.php?accion=obtener&id=". $incidencia['id_incidencia']."'><i class='fa-solid fa-eye m-2'></i></a>";
                                          echo "</td>";
 
                                         echo "</tr>";
                                       }
                                       ?>
-<!-- Modal Eliminar incidencia -->
- <div class="modal fade" id="eliminarIncidencia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-     <div class="modal-dialog">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar incidencia</h1>
-                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-             </div>
-             <div class="modal-body">
-
-                 <form action="controlador.php" method="POST" id="fei">
-                     <div class="form-group">
-                         <label class="form-label">¿Estás seguro de borrar esta incidencia?</label>
-                     </div>
-                     <input type="hidden" name="id_incidencia" value="<?= $incidencia['id_incidencia']; ?>">
-                 </form>
-
-             </div>
-             <div class="modal-footer">
-                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                 <button type="submit" class="btn btn-primary" name="eliminarIncidencia" form="fei">Sí</button>
-             </div>
-         </div>
-     </div>
- </div>
                         </tbody>
                     </table>
                 </div>
@@ -156,8 +127,31 @@ if (!isset($_SESSION['usuario']))
         </div>
 
     </div>
-    <!-- /.container-fluid -->
+    <!-- Modal Eliminar incidencia -->
+    <div class="modal fade" id="eliminarIncidencia" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar incidencia</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
 
+                    <form action="controlador.php" method="POST" id="fei">
+                        <div class="form-group">
+                            <label class="form-label">¿Estás seguro de borrar esta incidencia?</label>
+                        </div>
+                        <input type="hidden" name="id_incidencia" value="<?= $incidencia['id_incidencia']; ?>">
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary" name="accion" value="eliminar" form="fei">Sí</button>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- End of Main Content -->
 

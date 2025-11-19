@@ -62,7 +62,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button class="btn btn-primary " type="submit" name="accion" value="nuevo" form="fap">
+                <button class="btn btn-primary " type="submit" name="accion" value="crear" form="fap">
                     <i class="bi bi-plus-circle"></i> Crear 
                 </button>
             </div>

@@ -19,7 +19,7 @@ if (!isset($_SESSION['usuario']))
     <link href="./assets/css/solid.css" rel="stylesheet" />
 
     <link rel="icon" href="./img/icono.png" sizes="32x32" type="image/png">
-    <title>Ver Proyectos</title>
+    <title>Ver Incidencia</title>
 
     <?php         
     include_once("cabecera.php");
@@ -30,7 +30,7 @@ if (!isset($_SESSION['usuario']))
         <?php if (isset($incidencia)) { ?>
         <div class="card">
             <div class="card-header bg-primary text-white text-center fw-semibold fs-5">
-                <h3> Detalle de Proyecto </h3>
+                <h3> Detalle de Incidencia </h3>
             </div>
             <div class="card-body">
                 <h5 class="card-title "><strong class="text-warning">titulo:</strong>

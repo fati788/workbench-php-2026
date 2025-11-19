@@ -87,7 +87,7 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            <a class="nav-link dropdown-toggle text-black" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <?= $_SESSION['usuario'];?>
                                 <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
@@ -101,7 +101,7 @@
                                 </a>
 
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="controlador.php?accion=cerrarsecion">
+                                <a class="dropdown-item" href="controlador.php?accion=logout">
                                     Cerrar Sesion
                                 </a>
                             </div>
