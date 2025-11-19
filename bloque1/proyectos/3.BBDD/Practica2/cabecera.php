@@ -51,7 +51,7 @@
                 <a class="nav-link me-3" href="#" data-bs-toggle="modal" data-bs-target="#crearIncidencia">Crear
                     incidencia <i class="fa fa-plus" aria-hidden="true"></i></a>
                 <!-- <a class="nav-link me-2" href="#" data-bs-toggle="modal" data-bs-target="#eliminarProyectos">Eliminar
-                    Todo <i class='fa-solid fa-trash'></i></a> --> 
+                    Todo <i class='fa-solid fa-trash'></i></a> -->
             </li>
 
             <!-- Divider -->
@@ -75,11 +75,12 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
 
-<form method="GET" action="controlador.php" class="d-flex mb-3">
-    <input type="hidden" name="accion" value="buscar">
-    <input type="text" name="termino" class="form-control me-2 ml-5" placeholder="Buscar incidencia...">
-    <button class="btn btn-primary" type="submit">Buscar</button>
-</form>
+                    <form method="GET" action="controlador.php" class="d-flex mb-3">
+                        <input type="hidden" name="accion" value="buscar">
+                        <input type="text" name="termino" class="form-control me-2 ml-5"
+                            placeholder="Buscar incidencia...">
+                        <button class="btn btn-primary" type="submit">Buscar</button>
+                    </form>
 
 
                     <!-- Topbar Navbar -->
