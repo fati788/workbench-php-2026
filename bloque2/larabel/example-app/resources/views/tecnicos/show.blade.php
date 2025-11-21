@@ -32,6 +32,7 @@
                 </div>
             @endif
 
+
         <div class="card-body">
             <h5 class="card-title">{{$tecnico->nombre}}</h5>
             <h5 class="card-title">{{$tecnico->telefono}}</h5>
