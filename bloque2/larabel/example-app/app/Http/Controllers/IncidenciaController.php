@@ -17,5 +17,25 @@ class IncidenciaController extends Controller
         Incidencia::destroy($id);
         return redirect()->route('incidencias.index');
     }
+    public  function  store(Request $request) {
+        /*
+        $incidencia = new Incidencia();
+        $incidencia->latitud = $request->latitud;
+        $incidencia->longitud = $request->longitud;
+        $incidencia->ciudad = $request->ciudad;
+        $incidencia->direccion = $request->direccion;
+        $incidencia->descripcion = $request->descripcion;
+        $incidencia->estado = "pendiente";
+        $incidencia->save();*/
+        $incidencia =  Incidencia::create($request->all());
+       return redirect()->route('incidencias.show', $incidencia->id);
+
+    }
+    public  function show($id){
+        $incidencia = Incidencia::find($id);
+        //var_dump($incidencia);
+       // return redirect()->route('incidencias.index' , $incidencia->id);
+        return view('incidencias.show', ['incidencia' => $incidencia]);
+    }
 
 }

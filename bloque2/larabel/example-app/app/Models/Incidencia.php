@@ -9,4 +9,5 @@ class Incidencia extends Model
 {
     /** @use HasFactory<\Database\Factories\IncidenciaFactory> */
     use HasFactory;
+    protected $fillable=['latitud','longitud' , 'ciudad' , 'direccion' , 'descripcion' , 'estado'];
 }
