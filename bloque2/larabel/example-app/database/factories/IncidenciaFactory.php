@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Testing\Fakes\Fake;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Incidencia>
@@ -23,7 +24,7 @@ class IncidenciaFactory extends Factory
             'direccion' =>fake()->address(),
             'descripcion' =>fake()->paragraph(),
             'estado' =>fake()->randomElement(['pendiente','en proceso','resuelta']),
-
+            'tecnico_id' => fake()->numberBetween(1, 10)
         ];
     }
 }

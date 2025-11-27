@@ -39,6 +39,40 @@
             <p class="card-text">{{$tecnico->email}}</p>
         </div>
     </div>
+    <h3>{{$numeroInc->incidencias_count}}</h3>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+        <th scope="col">#</th>
+        <th scope="col">Laltidud</th>
+        <th scope="col">Longitud</th>
+        <th scope="col">Ciudad</th>
+        <th scope="col">Direccion</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Descripcio</th>
+        <th scope="col">Acciones</th>
+        </thead>
+
+        <tbody>
+        @foreach($incidencias as $incidencia)
+            <tr>
+                <td>{{$incidencia->id}}</td>
+                <td>{{$incidencia->latitud}}</td>
+                <td>{{$incidencia->longitud}}</td>
+                <td>{{$incidencia->ciudad}}</td>
+                <td>{{$incidencia->direccion}}</td>
+                <td>{{$incidencia->estado}}</td>
+                <td>{{$incidencia->descripcion}}</td>
+                <td>
+                    <a href="{{route('incidencias.delete', $incidencia->id )}}" class="btn btn-danger mb-3">eliminar</a>
+                    <a href="{{route('incidencias.show', $incidencia->id )}}" class="btn btn-success">ver</a>
+                </td>
+            </tr>
+        @endforeach
+
+        </tbody>
+
+    </table>
 
     <!-- Modal -->
     <div class="modal fade" id="nuevaTecnicoModal" tabindex="-1" aria-hidden="true">

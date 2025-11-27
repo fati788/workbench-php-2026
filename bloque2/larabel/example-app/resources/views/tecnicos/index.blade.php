@@ -56,7 +56,7 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger mb-3">Eliminar</button>
                     </form>
-                    <a href="{{route('tecnicos.show', $tecnico->id )}}" class="btn btn-outline-success">ver</a>
+                    <a href="{{route('tecnicos.show', $tecnico->id )}}" class="btn btn-outline-success  mb-3">ver</a>
                 </td>
             </tr>
         @endforeach

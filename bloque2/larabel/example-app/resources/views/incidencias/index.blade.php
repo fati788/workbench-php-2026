@@ -29,6 +29,7 @@
         <th scope="col">Direccion</th>
         <th scope="col">Estado</th>
         <th scope="col">Descripcio</th>
+        <th scope="col">Tecnico</th>
         <th scope="col">Acciones</th>
         </thead>
 
@@ -42,6 +43,7 @@
               <td>{{$incidencia->direccion}}</td>
               <td>{{$incidencia->estado}}</td>
                   <td>{{$incidencia->descripcion}}</td>
+                  <td>{{$incidencia->tecnico->nombre}}</td>
                   <td>
                       <a href="{{route('incidencias.delete', $incidencia->id )}}" class="btn btn-danger mb-3">eliminar</a>
                       <a href="{{route('incidencias.show', $incidencia->id )}}" class="btn btn-success">ver</a>
@@ -62,7 +64,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                  <form action="{{ route('incidencias.store') }}" method="POST" id="nuevaIncidenciaForm">
+                  <form action="{{ route('incidencias.store') }}" method="POST" id="nuevaIncidenciaForm" enctype="multipart/form-data">
                       @csrf
                   <div class="mb-3">
                       <label  class="form-label">Latitud</label>
@@ -85,6 +87,10 @@
                       <label for="exampleFormControlTextarea1" class="form-label">descripcion</label>
                       <textarea class="form-control" name="descripcion" rows="3"></textarea>
                   </div>
+                      <div class="mb-3">
+                          <label for="exampleFormControlTextarea1" class="form-label">Imagen</label>
+                         <input type="file" name="imagen" class="form-label" >
+                      </div>
 
                   </form>
               </div>
